@@ -1,6 +1,6 @@
 {
   "name": "@ejfkdev/jsdj",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Extract JS URLs and source maps from websites: discover dynamically loaded JS, restore original sources from source maps. Library and CLI.",
   "license": "MPL-2.0",
   "type": "module",

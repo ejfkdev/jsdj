@@ -5,7 +5,7 @@
  * library usage is documented in their place.
  */
 
-export const VERSION = '0.1.1';
+export const VERSION = '0.1.2';
 
 /** The full help output. */
 export function helpText(): string {
