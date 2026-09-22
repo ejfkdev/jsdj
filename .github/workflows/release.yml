@@ -66,19 +66,20 @@ jobs:
         run: npm pack --dry-run
 
       - name: Publish
-        # `--provenance` publishes a signed attestation of the build. It needs the
-        # id-token permission above and a public repository.
+        # Authentication is Trusted Publishing (OIDC): npm verifies this workflow's
+        # id-token against the trusted-publisher connection configured for the
+        # package, so there is no long-lived token to leak or rotate.
         #
-        # Authentication: once a Trusted Publisher is configured for this package on
-        # npmjs.com (package settings → Trusted Publisher → GitHub Actions, org
-        # `ejfkdev`, repo `jsdj`, workflow `release.yml`), the OIDC token above is
-        # used automatically and `NPM_TOKEN` becomes unnecessary. Until then the
-        # granular access token in that secret is what authenticates. Both paths
-        # publish identically, so the cutover needs no change here — delete the
-        # secret once OIDC is verified working.
+        # The connection is: package `@ejfkdev/jsdj` → Trusted Publisher →
+        # GitHub Actions, org `ejfkdev`, repo `jsdj`, workflow `release.yml`.
+        # All three are case-sensitive and must match this file's name exactly.
+        #
+        # Do not add a `NODE_AUTH_TOKEN` here. An empty or stale token takes
+        # precedence over the OIDC exchange and the publish fails with 401/403.
+        #
+        # `--provenance` additionally publishes a signed attestation linking the
+        # tarball to this workflow run and commit.
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create GitHub release
         env:
