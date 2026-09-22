@@ -9,6 +9,7 @@
 
 import { scopeFromUrl, safeSourcePath, type Storage, type StorageKey } from './storage.js';
 import { NullStorage } from './memory-storage.js';
+import { importBuiltin } from './import-builtin.js';
 
 /** Default cache location. */
 export const DEFAULT_CACHE_SUBDIR = 'ejfkdev/dj';
@@ -60,8 +61,8 @@ export class FsStorage implements Storage {
   static async create(options: FsStorageOptions = {}): Promise<FsStorage> {
     let baseDir = options.baseDir;
     if (baseDir === undefined || baseDir === '') {
-      const os = await import('node:os');
-      const path = await import('node:path');
+      const os = await importBuiltin<typeof import('node:os')>('node:os');
+      const path = await importBuiltin<typeof import('node:path')>('node:path');
       baseDir = path.join(os.tmpdir(), DEFAULT_CACHE_SUBDIR);
     }
     return new FsStorage({ ...options, baseDir });
@@ -69,13 +70,15 @@ export class FsStorage implements Storage {
 
   private fs(): Promise<typeof import('node:fs/promises')> {
     if (this.fsModule === null) {
-      this.fsModule = import('node:fs/promises');
+      this.fsModule = importBuiltin<typeof import('node:fs/promises')>(
+        'node:fs/promises',
+      );
     }
     return this.fsModule;
   }
 
   private async pathMod(): Promise<typeof import('node:path')> {
-    return import('node:path');
+    return importBuiltin<typeof import('node:path')>('node:path');
   }
 
   /** Absolute path for a key, or `null` when the key cannot be made safe. */

@@ -6,9 +6,13 @@
  * is the one adding `Accept-Encoding` — and we set that header ourselves as part
  * of the browser fingerprint. So when running on Node we decompress explicitly.
  *
- * `node:zlib` is imported lazily so that this module stays loadable in a browser
- * bundle; the browser path simply never reaches these calls.
+ * `node:zlib` is imported through {@link importBuiltin} so that this module stays
+ * loadable in a browser *bundle*; the browser path simply never reaches these
+ * calls. A plain `import('node:zlib')` would be lazy at runtime but still produce
+ * a resolvable edge that every bundler walks and fails on.
  */
+
+import { importBuiltin } from './import-builtin.js';
 
 const CONTENT_ENCODING_ALIASES: Record<string, string> = {
   'x-gzip': 'gzip',
@@ -61,7 +65,7 @@ async function zlibDecompress(
   body: Uint8Array,
   format: string,
 ): Promise<Uint8Array> {
-  const zlib = await import('node:zlib');
+  const zlib = await importBuiltin<typeof import('node:zlib')>('node:zlib');
   const buffer = Buffer.from(body.buffer, body.byteOffset, body.byteLength);
 
   const fn =

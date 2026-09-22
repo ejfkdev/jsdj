@@ -246,7 +246,8 @@ const result = await scan({
 A browser cannot scan arbitrary cross-origin sites: CORS blocks the requests. Supply a
 `transport` that routes through an origin you control, which is what the injectable
 transport is for. The browser entry exports the whole pipeline except the
-filesystem-backed pieces, and importing it never pulls in a Node builtin.
+filesystem-backed pieces, and it bundles cleanly: esbuild, webpack and rollup all build
+it for a browser target without needing a `node:*` polyfill or an external.
 
 ## Caching
 

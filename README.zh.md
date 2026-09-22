@@ -236,7 +236,8 @@ const result = await scan({
 
 浏览器无法扫描任意的跨域站点：请求会被 CORS 拦下。需要一个把请求绕经你自己域名的
 `transport`，这正是可注入请求层的用途。浏览器入口导出了除文件系统相关部分之外的整个
-流水线，并且引入它不会带上任何 Node 内置模块。
+流水线，并且可以直接打包：esbuild、webpack、rollup 都能以浏览器为目标构建它，无需
+`node:*` polyfill 或 external。
 
 ## 缓存
 
