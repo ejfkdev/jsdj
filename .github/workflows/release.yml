@@ -28,11 +28,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
           registry-url: 'https://registry.npmjs.org'
 
+      # The test script and lockfile are bun's, so the checks run under bun. The
+      # publish step below still uses npm: `npm publish` is what understands the
+      # OIDC trusted-publisher exchange and `--provenance`.
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: Install dependencies
-        run: npm ci || npm install
+        run: bun install --frozen-lockfile
 
       - name: Verify the tag matches package.json
         shell: bash
@@ -46,13 +52,13 @@ jobs:
           echo "tag $tag matches package.json"
 
       - name: Typecheck
-        run: npm run typecheck
+        run: bun run typecheck
 
       - name: Test
-        run: npm test
+        run: bun test
 
       - name: Build
-        run: npm run build
+        run: bun run build
 
       - name: Check what will be published
         run: npm pack --dry-run

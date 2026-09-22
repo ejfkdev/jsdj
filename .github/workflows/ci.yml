@@ -41,25 +41,41 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Node is set up for the version guarantee: the built output is executed by
+      # `node` below, so this matrix is what proves the package works on each
+      # supported Node. It is not used to install dependencies — see the bun step.
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: npm
+
+      # Dependencies are installed and the suite is run with bun, because that is
+      # what `bun.lock` and the `test` script use. Installing with npm here would
+      # both require a package-lock.json that this repository does not have and
+      # leave the lockfile untested.
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: bun install --frozen-lockfile
 
       - name: Typecheck
-        run: npm run typecheck
+        run: bun run typecheck
 
       - name: Build
-        run: npm run build
+        run: bun run build
 
       - name: Check the browser entry has no Node builtin
         # The `browser` export must not reach a Node builtin through a static import,
         # or a bundler pulls one into a browser build. A dynamic `import()` inside a
         # function body is fine, and is how the filesystem-backed pieces stay out.
-        run: npm run check:browser
+        run: bun run check:browser
 
       - name: Test
-        run: npm test
+        run: bun test
+
+      # The build output is plain Node ESM, so run one end-to-end command through
+      # the matrix's Node rather than bun. This is what catches the package being
+      # accidentally dependent on a bun-only API.
+      - name: Smoke-test the built CLI under Node
+        run: node dist/cli/index.js version
