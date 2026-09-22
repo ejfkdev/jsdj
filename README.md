@@ -42,8 +42,8 @@ pluggable cache, and restored source **content** rather than only paths.
 npm install jsdj        # or: pnpm add jsdj / bun add jsdj / yarn add jsdj
 ```
 
-No runtime dependencies. TLS fingerprinting ships as an optional dependency; when it
-is absent everything else still works.
+No runtime dependencies. TLS fingerprinting is provided by a separate package that is
+not installed by default; when it is absent everything else still works.
 
 ## CLI
 
@@ -215,7 +215,7 @@ for (const f of files) {
 | | Node | Browser |
 |---|---|---|
 | File cache | on by default, configurable | none — inject a `Storage` |
-| TLS fingerprint | via the optional sidecar, else ignored | never available |
+| TLS fingerprint | via the separate sidecar package, else ignored | never available |
 | Requests | any host | subject to CORS |
 
 Nothing throws because a platform lacks a capability. `tlsFingerprint` is accepted and
@@ -224,8 +224,8 @@ ignored where it cannot apply; caching degrades to pass-through.
 ### TLS fingerprinting
 
 Randomising the TLS ClientHello cannot be done from JavaScript — the handshake happens
-inside the runtime. It requires a native transport, shipped as the optional dependency
-**`@jsdj/tls-sidecar`**.
+inside the runtime. It requires a native transport, provided by a separate package
+(`@jsdj/tls-sidecar`) that is not installed by default.
 
 When that package is absent the CLI and library still work. The TLS options are
 accepted and silently have no effect, so one options object works everywhere. This is
@@ -375,7 +375,8 @@ cd examples/02-library-basics && npm install && node index.mjs
 - **No HTTP or MCP server.** Those came from dj's `xyz-go` framework and are out of
   scope; `serve` / `mcp` report that clearly instead of failing obscurely.
 - **No native TLS fingerprint by default.** It ships as the optional
-  `@jsdj/tls-sidecar`; without it, TLS options are accepted and ignored.
+  a separate package (`@jsdj/tls-sidecar`); without it, TLS options are accepted and
+  ignored.
 
 CLI flags, aliases, output layout, cache paths, exit codes and plugin names follow dj, so
 an existing dj workflow transfers as-is. On top of that:

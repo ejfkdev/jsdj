@@ -52,17 +52,18 @@
     "utls",
     "cli"
   ],
-  "optionalDependencies": {
-    "@jsdj/tls-sidecar": "^0.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/bun": "^1.4.2",
     "@types/node": "^22.10.2",
     "typescript": "^5.7.2"
   },
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ejfkdev/jsdj.git"
+  },
+  "homepage": "https://github.com/ejfkdev/jsdj#readme",
+  "bugs": {
+    "url": "https://github.com/ejfkdev/jsdj/issues"
   }
 }

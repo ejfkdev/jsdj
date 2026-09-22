@@ -9,9 +9,12 @@ on:
 
 permissions:
   contents: read
-  # Required for npm provenance: it links the published tarball to this workflow run
-  # and its commit, which is what lets a consumer verify the package was built from
-  # this repository.
+  # Two jobs use this:
+  #
+  # - npm provenance, which links the published tarball to this workflow run and its
+  #   commit so a consumer can verify the package was built from this repository.
+  # - Trusted Publishing (OIDC), which lets npm authenticate this workflow directly,
+  #   with no long-lived token stored in the repository.
   id-token: write
 
 jobs:
@@ -24,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
           registry-url: 'https://registry.npmjs.org'
 
@@ -51,9 +54,20 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check what will be published
+        run: npm pack --dry-run
+
       - name: Publish
         # `--provenance` publishes a signed attestation of the build. It needs the
         # id-token permission above and a public repository.
+        #
+        # Authentication: once a Trusted Publisher is configured for this package on
+        # npmjs.com (package settings → Trusted Publisher → GitHub Actions, org
+        # `ejfkdev`, repo `jsdj`, workflow `release.yml`), the OIDC token above is
+        # used automatically and `NPM_TOKEN` becomes unnecessary. Until then the
+        # granular access token in that secret is what authenticates. Both paths
+        # publish identically, so the cutover needs no change here — delete the
+        # secret once OIDC is verified working.
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

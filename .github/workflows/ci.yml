@@ -3,6 +3,9 @@ name: CI
 on:
   push:
     branches: [main]
+    # A tag push runs the same checks, so a release is gated on them even when the
+    # tag points at a commit that never went through a PR.
+    tags: ['v*']
   pull_request:
     branches: [main]
 

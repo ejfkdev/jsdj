@@ -39,7 +39,7 @@ chunk、`import()` 懒加载、各类框架清单等等，然后找出 source ma
 npm install jsdj        # 或：pnpm add jsdj / bun add jsdj / yarn add jsdj
 ```
 
-运行时零依赖。TLS 指纹作为可选依赖分发，没装也不影响其它功能。
+运行时零依赖。TLS 指纹由单独的包提供，默认不安装；没装也不影响其它功能。
 
 ## 命令行
 
@@ -218,7 +218,7 @@ for (const f of files) {
 ### TLS 指纹
 
 伪造 TLS ClientHello 无法在 JavaScript 里完成 —— 握手发生在运行时内部。这需要原生
-请求层，作为可选依赖 **`@jsdj/tls-sidecar`** 分发。
+请求层，由单独的包 **`@jsdj/tls-sidecar`** 提供，默认不安装。
 
 没装这个包时命令和库照常工作，TLS 相关选项被接受但静默无效，因此同一份参数配置在任何
 环境都能跑。这是有意为之：缺失的可选能力不该是错误，而浏览器本来就永远不具备它。
@@ -357,8 +357,8 @@ cd examples/02-library-basics && npm install && node index.mjs
 
 - **不含 HTTP 与 MCP 服务端。** 那部分来自 dj 依赖的 `xyz-go` 框架，不在移植范围内；
   `serve` / `mcp` 会明确提示不支持，而不是抛出难以理解的错误。
-- **默认不含原生 TLS 指纹。** 它以可选依赖 `@jsdj/tls-sidecar` 分发；未安装时 TLS
-  相关选项被接受并忽略。
+- **默认不含原生 TLS 指纹。** 它由单独的包 `@jsdj/tls-sidecar` 提供，默认未安装；
+  此时 TLS 相关选项被接受并忽略。
 
 命令行选项、别名、输出排版、缓存路径、退出码、插件名称都沿用 dj，因此已有的 dj 使用方式
 可以直接迁移。在此基础上另有几点：
