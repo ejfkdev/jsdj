@@ -30,7 +30,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
+          # `registry-url` is deliberately NOT set. It makes setup-node write an
+          # `.npmrc` containing
+          #   //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+          # and npm then resolves that placeholder to an empty string, which takes
+          # precedence over the OIDC exchange. The publish fails with
+          #   404 Not Found - PUT https://registry.npmjs.org/@scope%2fname
+          # which reads like a missing package but is actually a failed auth.
+          # npm uses the public registry by default, so nothing is needed here.
 
       # The test script and lockfile are bun's, so the checks run under bun. The
       # publish step below still uses npm: `npm publish` is what understands the
