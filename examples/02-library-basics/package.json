@@ -9,6 +9,6 @@
     "formats": "node formats.mjs"
   },
   "dependencies": {
-    "jsdj": "file:../.."
+    "@ejfkdev/jsdj": "file:../.."
   }
 }

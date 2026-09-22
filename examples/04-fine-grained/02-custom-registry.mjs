@@ -10,7 +10,7 @@
  * custom plugin to it.
  */
 
-import { scan, MemoryStorage, PluginRegistry, createDefaultRegistry, BUILTIN_PLUGIN_NAMES } from 'jsdj';
+import { scan, MemoryStorage, PluginRegistry, createDefaultRegistry, BUILTIN_PLUGIN_NAMES } from '@ejfkdev/jsdj';
 
 const target = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

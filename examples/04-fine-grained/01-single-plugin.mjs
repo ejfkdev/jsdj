@@ -17,7 +17,7 @@
  * references.
  */
 
-import { WebpackPlugin, DynamicImportPlugin, VitePlugin, NextJsPlugin, HtmlScriptPlugin, decodeContent } from 'jsdj';
+import { WebpackPlugin, DynamicImportPlugin, VitePlugin, NextJsPlugin, HtmlScriptPlugin, decodeContent } from '@ejfkdev/jsdj';
 
 // A read-only context. A standalone call has nothing accumulated yet, so an empty
 // one is correct.

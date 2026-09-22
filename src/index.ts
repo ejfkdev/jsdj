@@ -27,7 +27,7 @@
  *
  * @example
  * ```ts
- * import { scan } from 'jsdj';
+ * import { scan } from '@ejfkdev/jsdj';
  *
  * const result = await scan({
  *   url: 'https://example.com',
@@ -44,7 +44,7 @@
  *
  * @example Injecting a custom transport
  * ```ts
- * import { scan } from 'jsdj';
+ * import { scan } from '@ejfkdev/jsdj';
  *
  * // Only a fetch function is required; the scan supplies headers and cookies.
  * const result = await scan({

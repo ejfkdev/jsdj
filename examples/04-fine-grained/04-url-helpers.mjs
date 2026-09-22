@@ -20,7 +20,7 @@ import {
   getDirFromUrl,
   joinUrlPath,
   unique,
-} from 'jsdj';
+} from '@ejfkdev/jsdj';
 
 function show(label, input, output) {
   const shown = typeof input === 'string' ? JSON.stringify(input) : String(input);

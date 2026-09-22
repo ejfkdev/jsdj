@@ -20,7 +20,7 @@ import {
   formatMarkdown,
   detectRuntime,
   isAbsoluteUrl,
-} from 'jsdj/browser';
+} from '@ejfkdev/jsdj/browser';
 
 // ===== A storage backend =====
 

@@ -8,7 +8,7 @@
  * Run `node ../fixture-site/serve.mjs` first, then `node index.mjs`.
  */
 
-import { scan, MemoryStorage } from 'jsdj';
+import { scan, MemoryStorage } from '@ejfkdev/jsdj';
 
 const url = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

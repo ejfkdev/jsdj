@@ -9,7 +9,7 @@
  * suspicious markers. The same shape works for any static analysis.
  */
 
-import { scan, MemoryStorage } from 'jsdj';
+import { scan, MemoryStorage } from '@ejfkdev/jsdj';
 
 const url = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

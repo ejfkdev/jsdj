@@ -60,12 +60,12 @@ the same result every run. Omit `storage` on Node and you get the file cache und
 the system temp directory, which is what makes a second run nearly instant — the
 CLI section of this repo shows that.
 
-**TypeScript.** The package ships `.d.ts` files, so `import { scan } from 'jsdj'`
+**TypeScript.** The package ships `.d.ts` files, so `import { scan } from '@ejfkdev/jsdj'`
 is typed with no extra setup and no `@types` package. The result type is
 `ScanResult` if you want to name it:
 
 ```ts
-import { scan, type ScanResult } from 'jsdj';
+import { scan, type ScanResult } from '@ejfkdev/jsdj';
 
 const result: ScanResult = await scan({ url: 'https://example.com' });
 ```

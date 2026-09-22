@@ -10,7 +10,7 @@
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
-import { scan, MemoryStorage } from 'jsdj';
+import { scan, MemoryStorage } from '@ejfkdev/jsdj';
 
 const target = process.argv[2] ?? 'http://127.0.0.1:18080/';
 const RECORDING = new URL('./recording.json', import.meta.url).pathname;

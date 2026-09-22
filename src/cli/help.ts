@@ -77,7 +77,7 @@ Examples:
   jsdj --only-plugins WebpackPlugin,NextJSPlugin https://example.com
 
 Library:
-  import { scan } from 'jsdj';
+  import { scan } from '@ejfkdev/jsdj';
 
   const result = await scan({ url: 'https://example.com', headers: { ... } });
   result.jsUrls    // discovered JS URLs

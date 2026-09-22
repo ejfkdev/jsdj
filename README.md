@@ -2,7 +2,7 @@
 
 [中文](./README.zh.md) | English
 
-[![npm](https://img.shields.io/npm/v/jsdj?style=flat-square)](https://www.npmjs.com/package/jsdj)
+[![npm](https://img.shields.io/npm/v/@ejfkdev%2Fjsdj?style=flat-square)](https://www.npmjs.com/package/@ejfkdev/jsdj)
 [![License](https://img.shields.io/badge/License-MPL%202.0-blue.svg?style=flat-square)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/ejfkdev/jsdj/ci.yml?style=flat-square)](https://github.com/ejfkdev/jsdj/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-3178C6.svg?style=flat-square)](https://www.typescriptlang.org/)
@@ -24,8 +24,8 @@ pluggable cache, and restored source **content** rather than only paths.
   maps, Vite preload, micro-frontend entries, and more across **26 plugins**
 - **Source map restoration** — finds maps beside each bundle and recovers the original
   sources, preferring `sourcesContent` and falling back to `mappings` reconstruction
-- **Library and CLI from one package** — `import { scan } from 'jsdj'`, or
-  `npx jsdj <url>`
+- **Library and CLI from one package** — `import { scan } from '@ejfkdev/jsdj'`, or
+  `npx @ejfkdev/jsdj <url>`
 - **Node and browser** — the browser entry has no filesystem dependency; supply a
   `Storage` backend if you want cache reuse
 - **Injectable HTTP transport** — replace the network layer with your own TLS stack,
@@ -39,7 +39,7 @@ pluggable cache, and restored source **content** rather than only paths.
 ## Install
 
 ```bash
-npm install jsdj        # or: pnpm add jsdj / bun add jsdj / yarn add jsdj
+npm install @ejfkdev/jsdj   # or: pnpm add / bun add / yarn add @ejfkdev/jsdj
 ```
 
 No runtime dependencies. TLS fingerprinting is provided by a separate package that is
@@ -48,7 +48,7 @@ not installed by default; when it is absent everything else still works.
 ## CLI
 
 ```bash
-npx jsdj https://example.com              # or: bunx jsdj https://example.com
+npx @ejfkdev/jsdj https://example.com     # or: bunx @ejfkdev/jsdj https://example.com
 ```
 
 ```bash
@@ -89,7 +89,7 @@ jsdj --only-plugins WebpackPlugin,NextJSPlugin https://example.com
 ## Library
 
 ```ts
-import { scan } from 'jsdj';
+import { scan } from '@ejfkdev/jsdj';
 
 const result = await scan({
   url: 'https://example.com',
@@ -175,13 +175,13 @@ import {
   NodeHttpClient, BrowserHttpClient, MemoryStorage, NullStorage, FsStorage,
   // Output
   formatMarkdown, formatJson, formatText,
-} from 'jsdj';
+} from '@ejfkdev/jsdj';
 ```
 
 Running a single plugin over content you already have:
 
 ```ts
-import { WebpackPlugin } from 'jsdj';
+import { WebpackPlugin } from '@ejfkdev/jsdj';
 
 const plugin = new WebpackPlugin();
 const input = {
@@ -201,7 +201,7 @@ if (plugin.precheck(input, context)) {
 Restoring a source map you fetched yourself:
 
 ```ts
-import { parseSourceMap, restoreFiles } from 'jsdj';
+import { parseSourceMap, restoreFiles } from '@ejfkdev/jsdj';
 
 const map = parseSourceMap(mapJson);
 const files = restoreFiles(map, minifiedJs); // minifiedJs optional
@@ -235,7 +235,7 @@ never have it.
 ### Browser use
 
 ```ts
-import { scan, MemoryStorage } from 'jsdj/browser';
+import { scan, MemoryStorage } from '@ejfkdev/jsdj/browser';
 
 const result = await scan({
   url: 'https://example.com',

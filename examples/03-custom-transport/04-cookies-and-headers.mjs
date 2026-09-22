@@ -6,7 +6,7 @@
  * getting it wrong is the usual reason a scan comes back empty.
  */
 
-import { scan, MemoryStorage, CookieJar, parseCookieString, DEFAULT_USER_AGENT } from 'jsdj';
+import { scan, MemoryStorage, CookieJar, parseCookieString, DEFAULT_USER_AGENT } from '@ejfkdev/jsdj';
 
 const target = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

@@ -9,7 +9,7 @@
     "start": "npm run build && npm run serve"
   },
   "dependencies": {
-    "jsdj": "file:../.."
+    "@ejfkdev/jsdj": "file:../.."
   },
   "devDependencies": {
     "bun": "*"

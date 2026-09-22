@@ -11,7 +11,7 @@
  * protected site returns nothing.
  */
 
-import { scan, MemoryStorage, Fetcher, loadTlsSidecar, SIDECAR_PACKAGE, TLS_FINGERPRINT_PROFILES } from 'jsdj';
+import { scan, MemoryStorage, Fetcher, loadTlsSidecar, SIDECAR_PACKAGE, TLS_FINGERPRINT_PROFILES } from '@ejfkdev/jsdj';
 
 const target = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

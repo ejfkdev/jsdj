@@ -12,7 +12,7 @@ import {
   formatMarkdown,
   formatJson,
   formatText,
-} from 'jsdj';
+} from '@ejfkdev/jsdj';
 
 const url = process.argv[2] ?? 'http://127.0.0.1:18080/';
 

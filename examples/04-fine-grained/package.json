@@ -10,6 +10,6 @@
     "helpers": "node 04-url-helpers.mjs"
   },
   "dependencies": {
-    "jsdj": "file:../.."
+    "@ejfkdev/jsdj": "file:../.."
   }
 }

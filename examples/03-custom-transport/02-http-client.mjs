@@ -9,7 +9,7 @@
  * The interface is three methods: `request`, `head`, and an optional `close`.
  */
 
-import { scan, MemoryStorage, HttpError, getHeader } from 'jsdj';
+import { scan, MemoryStorage, HttpError, getHeader } from '@ejfkdev/jsdj';
 import { request as httpsRequest, Agent as HttpsAgent } from 'node:https';
 import { request as httpRequest, Agent as HttpAgent } from 'node:http';
 

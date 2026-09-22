@@ -11,6 +11,6 @@
     "tls": "node 05-tls-fingerprint.mjs"
   },
   "dependencies": {
-    "jsdj": "file:../.."
+    "@ejfkdev/jsdj": "file:../.."
   }
 }

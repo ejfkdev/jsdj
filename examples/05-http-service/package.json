@@ -8,6 +8,6 @@
     "demo": "node demo.mjs"
   },
   "dependencies": {
-    "jsdj": "file:../.."
+    "@ejfkdev/jsdj": "file:../.."
   }
 }

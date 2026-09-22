@@ -19,7 +19,7 @@ import {
   parseMappings,
   normalizeSourcePath,
   buildSourceMapUrl,
-} from 'jsdj';
+} from '@ejfkdev/jsdj';
 
 // ===== A map with sourcesContent: the original text survives =====
 

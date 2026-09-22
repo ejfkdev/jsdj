@@ -2,7 +2,7 @@
 
 [English](./README.md) | 中文
 
-[![npm](https://img.shields.io/npm/v/jsdj?style=flat-square)](https://www.npmjs.com/package/jsdj)
+[![npm](https://img.shields.io/npm/v/@ejfkdev%2Fjsdj?style=flat-square)](https://www.npmjs.com/package/@ejfkdev/jsdj)
 [![License](https://img.shields.io/badge/License-MPL%202.0-blue.svg?style=flat-square)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/ejfkdev/jsdj/ci.yml?style=flat-square)](https://github.com/ejfkdev/jsdj/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-3178C6.svg?style=flat-square)](https://www.typescriptlang.org/)
@@ -24,8 +24,8 @@ chunk、`import()` 懒加载、各类框架清单等等，然后找出 source ma
   preload、微前端入口等，共 **26 个插件**
 - **还原 source map** —— 在每个 bundle 旁探测 `.map` 并还原原始源码，优先用
   `sourcesContent`，缺失时回退到 `mappings` 重组
-- **同一个包既是库也是命令行** —— `import { scan } from 'jsdj'`，或
-  `npx jsdj <url>`
+- **同一个包既是库也是命令行** —— `import { scan } from '@ejfkdev/jsdj'`，或
+  `npx @ejfkdev/jsdj <url>`
 - **Node 与浏览器都可用** —— 浏览器入口不依赖文件系统；想要缓存复用就自己传一个
   `Storage` 实现
 - **可注入 HTTP 请求层** —— 换成你自己的 TLS 指纹栈、代理或录制回放
@@ -36,7 +36,7 @@ chunk、`import()` 懒加载、各类框架清单等等，然后找出 source ma
 ## 安装
 
 ```bash
-npm install jsdj        # 或：pnpm add jsdj / bun add jsdj / yarn add jsdj
+npm install @ejfkdev/jsdj   # 或：pnpm add / bun add / yarn add @ejfkdev/jsdj
 ```
 
 运行时零依赖。TLS 指纹由单独的包提供，默认不安装；没装也不影响其它功能。
@@ -44,7 +44,7 @@ npm install jsdj        # 或：pnpm add jsdj / bun add jsdj / yarn add jsdj
 ## 命令行
 
 ```bash
-npx jsdj https://example.com              # 或：bunx jsdj https://example.com
+npx @ejfkdev/jsdj https://example.com     # 或：bunx @ejfkdev/jsdj https://example.com
 ```
 
 ```bash
@@ -85,7 +85,7 @@ jsdj --only-plugins WebpackPlugin,NextJSPlugin https://example.com
 ## 作为库使用
 
 ```ts
-import { scan } from 'jsdj';
+import { scan } from '@ejfkdev/jsdj';
 
 const result = await scan({
   url: 'https://example.com',
@@ -169,13 +169,13 @@ import {
   NodeHttpClient, BrowserHttpClient, MemoryStorage, NullStorage, FsStorage,
   // 输出渲染
   formatMarkdown, formatJson, formatText,
-} from 'jsdj';
+} from '@ejfkdev/jsdj';
 ```
 
 对你手上已有的内容单独跑一个插件：
 
 ```ts
-import { WebpackPlugin } from 'jsdj';
+import { WebpackPlugin } from '@ejfkdev/jsdj';
 
 const plugin = new WebpackPlugin();
 const input = {
@@ -195,7 +195,7 @@ if (plugin.precheck(input, context)) {
 解析你自己抓到的 source map：
 
 ```ts
-import { parseSourceMap, restoreFiles } from 'jsdj';
+import { parseSourceMap, restoreFiles } from '@ejfkdev/jsdj';
 
 const map = parseSourceMap(mapJson);
 const files = restoreFiles(map, minifiedJs); // minifiedJs 可选
@@ -226,7 +226,7 @@ for (const f of files) {
 ### 浏览器端
 
 ```ts
-import { scan, MemoryStorage } from 'jsdj/browser';
+import { scan, MemoryStorage } from '@ejfkdev/jsdj/browser';
 
 const result = await scan({
   url: 'https://example.com',
