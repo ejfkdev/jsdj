@@ -40,11 +40,33 @@ jobs:
           # npm uses the public registry by default, so nothing is needed here.
 
       # The test script and lockfile are bun's, so the checks run under bun. The
-      # publish step below still uses npm: `npm publish` is what understands the
-      # OIDC trusted-publisher exchange and `--provenance`.
+      # publish step below still uses npm: `npm publish` is what performs the
+      # OIDC trusted-publisher exchange and emits the provenance attestation.
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: Install a current npm
+        # Trusted publishing needs npm >= 11.5.1 — that is where OIDC environment
+        # detection was added. Node 22 bundles npm 10.9.x, which has no OIDC
+        # support at all and fails with a bare
+        #   npm error code ENEEDAUTH
+        #   need auth This command requires you to be logged in
+        # even with `id-token: write` and a valid trusted-publisher connection.
+        run: npm install -g npm@latest
+
+      - name: Assert npm supports OIDC
+        # Fails loudly here rather than as a confusing auth error at publish time,
+        # in case the install above is ever dropped or pinned back.
+        shell: bash
+        run: |
+          have=$(npm --version)
+          need=11.5.1
+          if [ "$(printf '%s\n%s\n' "$need" "$have" | sort -V | head -1)" != "$need" ]; then
+            echo "::error::npm $have is too old for trusted publishing (need >= $need)"
+            exit 1
+          fi
+          echo "npm $have supports trusted publishing"
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
