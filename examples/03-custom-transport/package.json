@@ -1,0 +1,16 @@
+{
+  "name": "jsdj-example-transport",
+  "private": true,
+  "type": "module",
+  "description": "Inject your own HTTP transport: a fetch function, a full HttpClient, and a record/replay harness.",
+  "scripts": {
+    "fetch-fn": "node 01-fetch-function.mjs",
+    "http-client": "node 02-http-client.mjs",
+    "record": "node 03-record-replay.mjs",
+    "cookies": "node 04-cookies-and-headers.mjs",
+    "tls": "node 05-tls-fingerprint.mjs"
+  },
+  "dependencies": {
+    "jsdj": "file:../.."
+  }
+}

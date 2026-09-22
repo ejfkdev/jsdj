@@ -1,0 +1,85 @@
+name: Bug report
+description: Something did not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. The single most useful thing you can include is the
+        command you ran and what it produced — most issues here are about a specific
+        site's loading pattern, and that is impossible to guess at.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: |
+        The exact command, or the `scan()` options if you used the library, plus the
+        output. `--debug` output helps and can be long, so a paste into a details block
+        is fine.
+      render: shell
+      placeholder: |
+        $ jsdj --debug https://example.com
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: '`jsdj version`, or `npm ls jsdj` if you use it as a library.'
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: 'Node version and OS, e.g. "Node 22.11 on macOS 15.1 arm64". Bun or Deno if relevant.'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      description: Roughly which part is involved. A guess is fine.
+      options:
+        - CLI
+        - Library (Node)
+        - Library (browser)
+        - A specific plugin
+        - Source map restoration
+        - Caching
+        - TLS / proxy
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-urls
+    attributes:
+      label: URLs you expected but did not get
+      description: |
+        If this is a discovery problem, list what the browser's DevTools Network tab
+        shows loading that jsdj missed. That turns a guess into something testable.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I tried `--no-cache` in case a stale cache was involved
+          required: false
+        - label: I checked the site's own network tab, so I know the URL is really loaded
+          required: false

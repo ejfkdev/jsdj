@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question or usage help
+    url: https://github.com/ejfkdev/jsdj/discussions
+    about: For "how do I…" questions, discussions get answers faster than issues.
+  - name: A site whose JS is not extracted
+    url: https://github.com/ejfkdev/jsdj/issues/new?template=bug_report.yml
+    about: Use the bug template — the site URL and the missing URLs are what make it actionable.

@@ -1,0 +1,13 @@
+{
+  "name": "jsdj-example-service",
+  "private": true,
+  "type": "module",
+  "description": "A scan endpoint built on node:http — concurrency limiting, caching, cancellation, and job progress.",
+  "scripts": {
+    "start": "node server.mjs",
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {
+    "jsdj": "file:../.."
+  }
+}

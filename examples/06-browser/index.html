@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jsdj in the browser</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #666;
+      --border: #d8d8d8;
+      --ok: #1a7f37;
+      --err: #c0392b;
+      --warn: #9a6700;
+      --panel: #f7f7f7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #16181c;
+        --fg: #e6e6e6;
+        --muted: #9aa0a6;
+        --border: #33373d;
+        --ok: #4ac26b;
+        --err: #f27a72;
+        --warn: #e3b341;
+        --panel: #1e2126;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 2rem 1.5rem;
+      font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      max-width: 62rem;
+      margin-inline: auto;
+    }
+    h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+    p.lede { color: var(--muted); margin: 0 0 1.5rem; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    input[type=url] {
+      flex: 1 1 24rem;
+      min-width: 0;
+      padding: .5rem .65rem;
+      font: inherit;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: .35rem;
+    }
+    button {
+      padding: .5rem .9rem;
+      font: inherit;
+      color: var(--fg);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: .35rem;
+      cursor: pointer;
+    }
+    button:hover { border-color: var(--muted); }
+    button.primary { border-color: var(--fg); font-weight: 600; }
+    #log {
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: .35rem;
+      padding: .85rem 1rem;
+      min-height: 12rem;
+      max-height: 28rem;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .line { }
+    .line.ok { color: var(--ok); }
+    .line.err { color: var(--err); }
+    .line.warn { color: var(--warn); }
+    details { margin-top: 1.25rem; }
+    summary { cursor: pointer; color: var(--muted); }
+    pre {
+      font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: .35rem;
+      padding: .85rem 1rem;
+      overflow: auto;
+      max-height: 30rem;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  </style>
+</head>
+<body>
+  <h1>jsdj in the browser</h1>
+  <p class="lede">
+    The <code>jsdj/browser</code> entry, running the real pipeline. No filesystem, no
+    TLS fingerprinting, and CORS applies — the three things that differ from Node.
+  </p>
+
+  <div class="controls">
+    <input id="target" type="url" value="http://127.0.0.1:18080/" spellcheck="false">
+    <button id="run-offline" class="primary">Offline demo</button>
+    <button id="run-proxied">Scan via proxy</button>
+    <button id="run-direct">Scan directly</button>
+  </div>
+
+  <div id="log"></div>
+
+  <details>
+    <summary>Markdown report</summary>
+    <pre id="report">Run a scan to populate this.</pre>
+  </details>
+
+  <script type="module" src="./dist/app.js"></script>
+</body>
+</html>

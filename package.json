@@ -1,0 +1,68 @@
+{
+  "name": "jsdj",
+  "version": "0.1.0",
+  "description": "Extract JS URLs and source maps from websites: discover dynamically loaded JS, restore original sources from source maps. Library and CLI.",
+  "license": "MPL-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "bin": {
+    "jsdj": "dist/cli/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/browser.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "bun test",
+    "check:browser": "node scripts/check-browser-graph.mjs",
+    "verify": "npm run typecheck && npm run build && npm run check:browser && npm test",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "javascript",
+    "sourcemap",
+    "webpack",
+    "vite",
+    "nextjs",
+    "recon",
+    "scanner",
+    "tls-fingerprint",
+    "utls",
+    "cli"
+  ],
+  "optionalDependencies": {
+    "@jsdj/tls-sidecar": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejfkdev/jsdj.git"
+  }
+}

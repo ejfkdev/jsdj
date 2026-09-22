@@ -1,0 +1,14 @@
+{
+  "name": "jsdj-example-library",
+  "private": true,
+  "type": "module",
+  "description": "Use jsdj as a library: scan a site, read the restored sources, render output.",
+  "scripts": {
+    "start": "node index.mjs",
+    "sources": "node sources.mjs",
+    "formats": "node formats.mjs"
+  },
+  "dependencies": {
+    "jsdj": "file:../.."
+  }
+}

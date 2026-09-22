@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A new push to the same branch supersedes the previous run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor from package.json `engines`, plus the current LTS and Node's
+        # latest, so a change that relies on a newer API is caught here rather than
+        # by a user.
+        node: ['20', '22', '24']
+        os: [ubuntu-latest]
+        include:
+          # One run on each of the other platforms, on the floor version. Full
+          # matrix coverage on all three would be nine runs for a library whose
+          # platform-specific code is small.
+          - node: '20'
+            os: macos-latest
+          - node: '20'
+            os: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Check the browser entry has no Node builtin
+        # The `browser` export must not reach a Node builtin through a static import,
+        # or a bundler pulls one into a browser build. A dynamic `import()` inside a
+        # function body is fine, and is how the filesystem-backed pieces stay out.
+        run: npm run check:browser
+
+      - name: Test
+        run: npm test

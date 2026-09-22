@@ -1,0 +1,17 @@
+{
+  "name": "jsdj-example-browser",
+  "private": true,
+  "type": "module",
+  "description": "Use the browser entry in a real page: a custom storage backend, an injected transport, and the CORS reality.",
+  "scripts": {
+    "build": "bun build ./app.js --outfile ./dist/app.js --target browser",
+    "serve": "node serve.mjs",
+    "start": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "jsdj": "file:../.."
+  },
+  "devDependencies": {
+    "bun": "*"
+  }
+}

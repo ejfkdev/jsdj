@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "sources": [
+    "webpack:///./src/runtime.js",
+    "webpack:///./src/loader.js",
+    "webpack:///./src/config.js"
+  ],
+  "sourcesContent": [
+    "// The chunk URL builder, as webpack emits it.\nexport const runtime = true;\n",
+    "// Resolves a chunk id to its artifact path.\nexport const loader = true;\n",
+    "// Reads runtime config from the host page.\nexport const config = {\n  // TODO: move this to the environment before shipping\n  apiKey: 'demo-key-not-real',\n  baseUrl: 'https://admin.internal/api',\n  debug: true,\n};\n"
+  ],
+  "mappings": "AAAA"
+}

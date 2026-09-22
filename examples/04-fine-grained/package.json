@@ -1,0 +1,15 @@
+{
+  "name": "jsdj-example-fine-grained",
+  "private": true,
+  "type": "module",
+  "description": "Use jsdj piece by piece: one plugin, one URL, one source map, one URL helper.",
+  "scripts": {
+    "plugin": "node 01-single-plugin.mjs",
+    "registry": "node 02-custom-registry.mjs",
+    "sourcemap": "node 03-sourcemap-standalone.mjs",
+    "helpers": "node 04-url-helpers.mjs"
+  },
+  "dependencies": {
+    "jsdj": "file:../.."
+  }
+}
