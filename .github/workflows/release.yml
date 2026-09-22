@@ -8,7 +8,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  # `write` because the job creates a GitHub release for the tag. With `read` the
+  # `gh release create` call fails with "Resource not accessible by integration".
+  contents: write
   # Two jobs use this:
   #
   # - npm provenance, which links the published tarball to this workflow run and its
